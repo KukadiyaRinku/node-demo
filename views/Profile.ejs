@@ -7,8 +7,15 @@
     }
   </style>
   <body>
-    <h1>Welcome, <%= user.name %></h1>
+    <%- include('common/Header') %>
     <h3>Name: <%= user.name %></h3>
     <h3>Email: <%= user.email %></h3>
+    <ul>
+      <% user.skills.forEach((item)=>{ %>
+      <li><%= item %></li>
+      <% })%>
+    </ul>
+
+    <%- include('common/Footer') %>
   </body>
 </html>

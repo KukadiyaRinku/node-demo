@@ -13,10 +13,15 @@ app.get('', (_, resp) => {
 app.get('/profile', (_, resp) => {
     const user = {
         name: "Rinku",
-        email: "kukdaiyarinku@gmail.com"
+        email: "kukdaiyarinku@gmail.com",
+        skills: ['VB.net', 'C#', 'React', 'Node', 'JAVA']
     };
     resp.render('Profile', { user });
 });
+
+app.get('/login', (_, resp) => {
+    resp.render('Login');
+})
 
 app.get('/about', (_, resp) => {
     resp.sendFile(`${viewPath}/AboutUs.html`);
