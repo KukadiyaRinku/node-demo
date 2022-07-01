@@ -1,17 +1,28 @@
-const http = require('http');
-const mdata = require('./Data.js');
 
-const hostName = '127.0.0.1';
-const portNo = 3060;
+const fs = require('fs');
+const path = require('path');
+const dirPath = path.join(__dirname, 'crud');
+const filePath = path.join(dirPath, 'TextFile.txt');
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application\json');
-    res.write(JSON.stringify(mdata));
-    res.end();
-});
+// fs.writeFileSync(filePath, "This Is First Text File.");
+// console.log('Created.');
 
-server.listen(portNo, hostName, () => {
-    console.log(`Server running at http://${hostName}:${portNo}/`);
-});
+// fs.readFile(filePath, 'utf8', (err, item) => {
+//     console.log(item);
+// });
 
+// fs.appendFile(filePath, " And File Name Is 'TextFile.txt'. ", (err) => {
+//     if (!err) console.log('Updated.');
+// });
+
+//const newFilePath = path.join(dirPath, "RenamedFile.txt");
+// fs.rename(filePath,newFilePath , (err) => {
+//     if (!err) {
+//     filePath =  newFilePath;
+//     console.log("File Renamed.");
+//}
+// })
+
+// fs.unlink(filePath, (err) => {
+//     if (!err) console.log("File Deleted.")
+// });
