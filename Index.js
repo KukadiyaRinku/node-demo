@@ -1,16 +1,9 @@
 const express = require('express');
+const path = require('path')
+
 const app = express();
+const viewPath = path.join(__dirname, 'View');
 
-app.get('', (req, res) => {
-    res.send("This Is Home Page.");
-});
-
-app.get('/about', (req, res) => {
-    res.send("This Is About Us Page.");
-});
-
-app.get('/contact', (req, res) => {
-    res.send("This Is Contact Us Page.");
-});
+app.use(express.static(viewPath));
 
 app.listen(3060);
