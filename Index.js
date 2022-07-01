@@ -1,28 +1,15 @@
 
-const fs = require('fs');
-const path = require('path');
-const dirPath = path.join(__dirname, 'crud');
-const filePath = path.join(dirPath, 'TextFile.txt');
+let a = 10;
+let b = 30;
 
-// fs.writeFileSync(filePath, "This Is First Text File.");
-// console.log('Created.');
+var waitingData = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(40);
+    }, 2000);
+});
 
-// fs.readFile(filePath, 'utf8', (err, item) => {
-//     console.log(item);
-// });
+waitingData.then((data) => {
+    console.log(a + data);
+});
 
-// fs.appendFile(filePath, " And File Name Is 'TextFile.txt'. ", (err) => {
-//     if (!err) console.log('Updated.');
-// });
-
-//const newFilePath = path.join(dirPath, "RenamedFile.txt");
-// fs.rename(filePath,newFilePath , (err) => {
-//     if (!err) {
-//     filePath =  newFilePath;
-//     console.log("File Renamed.");
-//}
-// })
-
-// fs.unlink(filePath, (err) => {
-//     if (!err) console.log("File Deleted.")
-// });
+console.log(a + b);
