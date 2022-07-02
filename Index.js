@@ -1,41 +1,42 @@
 const express = require('express');
-const path = require('path')
+const conn = require('./config');
 
 const app = express();
-const viewPath = path.join(__dirname, 'Pages');
 
-app.set('view engine', 'ejs');
+app.use(express.json());
 
-app.get('', (_, resp) => {
-    resp.sendFile(`${viewPath}/Index.html`);
+app.get('/', (req, resp) => {
+    conn.query("select * from course", (err, result) => {
+        if (err)
+            resp.send("Unable to fetch data.")
+        else
+            resp.send(JSON.stringify(result));
+    })
 });
 
-app.get('/profile', (_, resp) => {
-    const user = {
-        name: "Rinku",
-        email: "kukdaiyarinku@gmail.com",
-        skills: ['VB.net', 'C#', 'React', 'Node', 'JAVA']
-    };
-    resp.render('Profile', { user });
+app.post('/', (req, resp) => {
+    //const data = { id: 10, description: 'Python to learn.', name: 'Python' };
+    const data = req.body;
+    conn.query('insert into course set ? ', data, (err, result, fields) => {
+        if (err) resp.send(err);
+        else resp.send(result);
+    })
 });
 
-app.get('/login', (_, resp) => {
-    resp.render('Login');
-})
-
-app.get('/about', (_, resp) => {
-    resp.sendFile(`${viewPath}/AboutUs.html`);
+app.put('/:id', (req, resp) => {
+    const data = [req.body.description, req.body.name, req.params.id];
+    conn.query("update course set description = ? ,name = ? WHERE id = ? ", data, (err, result, fields) => {
+        if (err) resp.send("Unable to update.")
+        else resp.send(result);
+    })
 });
 
-app.get('/contact', (_, resp) => {
-    resp.sendFile(`${viewPath}/ContactUs.html`);
+app.delete('/:id', (req, resp) => {
+    const data = [req.params.id];
+    conn.query("delete from course where id=?", data, (err, result, fields) => {
+        if (err) resp.send("Unable to delete.")
+        else resp.send(result);
+    });
 });
 
-app.get('*', (_, resp) => {
-    resp.sendFile(`${viewPath}/NotFound.html`);
-});
-
-app.listen(3060, () => {
-    console.log(`Server running at http://3060/`);
-}
-);
+app.listen(3060);
